@@ -92,4 +92,22 @@ export const deleteFood =async (req:Request, res:Response) =>{
         })
     }
 
-}  
+} 
+export const getFoodLike = async (req:Request, res:Response): Promise <Response> => {
+    
+    const id=req.params.id;
+    const _consultaSelect='SELECT * FROM foods WHERE UPPER(NAME) LIKE '+'\'%'+id+'%\'';
+   
+    try {
+        const conn = await connect();
+        const food_units = await conn.query(_consultaSelect);
+        return res.json(food_units[0]);
+    }
+    catch (e) {
+        console.log(e)
+        return res.status(400).json({
+            'mensaje':' no hay FoodUnit con ee dato',
+            
+        })
+    }
+} 

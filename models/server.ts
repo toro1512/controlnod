@@ -10,6 +10,8 @@ import userGroups from '../routes/groups';
 
 
 
+
+
 class Server{
 
     private app: Application;
@@ -19,9 +21,8 @@ class Server{
         type_activities:'/api/typesActivities',
         food:'/api/food',
         groups:'/api/groups',
-        foodUnit:'/api/foodUnit'
-
-
+        foodUnit:'/api/foodUnit',
+        
     }
 //constructor
     constructor(){
@@ -53,6 +54,7 @@ class Server{
         this.app.use(this.apiPaths.foodUnit, userFoodUnits);
         this.app.use(this.apiPaths.groups, userGroups);
         this.app.use(this.apiPaths.food, userFood);
+       
     }
 //servidor
     listen(){

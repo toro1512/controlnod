@@ -7,7 +7,7 @@ export const getFoodUnits= async (req: Request, res: Response): Promise<Response
         const conn = await connect();
         const food_units = await conn.query('SELECT * FROM food_units');
         return res.json({
-            'FoodUnits': food_units[0]
+            'FoodUnit': food_units[0]
         });
     }
     catch (e) {
