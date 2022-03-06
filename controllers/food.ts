@@ -101,7 +101,9 @@ export const getFoodLike = async (req:Request, res:Response): Promise <Response>
     try {
         const conn = await connect();
         const food_units = await conn.query(_consultaSelect);
-        return res.json(food_units[0]);
+        return res.json({
+            'page':1,
+            'result':food_units[0]});
     }
     catch (e) {
         console.log(e)
