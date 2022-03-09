@@ -96,7 +96,7 @@ export const deleteFood =async (req:Request, res:Response) =>{
 export const getFoodLike = async (req:Request, res:Response): Promise <Response> => {
     
     const id=req.params.id;
-    const _consultaSelect='SELECT * FROM foods WHERE UPPER(NAME) LIKE '+'\'%'+id+'%\'';
+    const _consultaSelect='SELECT F.ID, G.NAME GRUPO, F.NAME NOMBRE, F.PROTEIN PROTEINA, F.CARBOHYDRATE CARBOHIDRATO, F.KCAL CALORIAS, LIGHT SEMAFORO FROM foods F, groups G WHERE F.ID_GROUP=G.ID AND UPPER(F.NAME) LIKE '+'\'%'+id+'%\'';
    
     try {
         const conn = await connect();
@@ -108,6 +108,7 @@ export const getFoodLike = async (req:Request, res:Response): Promise <Response>
     catch (e) {
         console.log(e)
         return res.status(400).json({
+            'page':1,
             'mensaje':' no hay FoodUnit con ee dato',
             
         })
