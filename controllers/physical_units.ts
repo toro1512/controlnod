@@ -2,12 +2,12 @@ import { Request, Response } from "express"
 import { connect } from "../db/conexion";
 import { Basica } from "../models/Basica";
 
-export const getFoodUnits= async (req: Request, res: Response): Promise<Response> => {
+export const getPhysicalUnits= async (req: Request, res: Response): Promise<Response> => {
     try {
         const conn = await connect();
-        const food_units = await conn.query('SELECT * FROM food_units');
+        const physical_units = await conn.query('SELECT * FROM physical_units');
         return res.json({
-            'FoodUnit': food_units[0]
+            'PhysicalUnit': physical_units[0]
         });
     }
     catch (e) {
@@ -18,16 +18,16 @@ export const getFoodUnits= async (req: Request, res: Response): Promise<Response
     }
 }
 
-export const getFoodUnit = async (req:Request, res:Response): Promise <Response> => {
+export const getPhysicalUnit = async (req:Request, res:Response): Promise <Response> => {
     
     const id=req.params.id;
     const tipo =req.params.tipo;
 
     try {
         const conn = await connect();
-        const food_units = await conn.query('SELECT * FROM food_units WHERE id=?', [id]);
+        const physical_units = await conn.query('SELECT * FROM physical_units WHERE id=?', [id]);
         return res.json({
-            'FoodUnit': food_units[0],
+            'PhysicalUnit': physical_units[0],
             'id': id,
             'tipo': tipo
         });
@@ -35,18 +35,18 @@ export const getFoodUnit = async (req:Request, res:Response): Promise <Response>
     catch (e) {
         console.log(e)
         return res.status(400).json({
-            'mensaje':' no hay FoodUnit con ee dato'
+            'mensaje':' no hay PhysicalUnit con ee dato'
         })
     }
 }
-export const postFoodUnit = async (req: Request, res: Response) =>{
+export const postPhysicalUnit = async (req: Request, res: Response) =>{
     
-    const newFoodUnit:Basica= req.body;
+    const newPhysicalUnit:Basica= req.body;
     try {
         const conn = await connect();
-        const food_units = await conn.query('INSERT INTO food_units SET ?',[newFoodUnit]);
+        const physical_units = await conn.query('INSERT INTO physical_units SET ?',[newPhysicalUnit]);
         return res.json({
-            'mes':'FoodUnit creado'
+            'mes':'PhysicalUnit creado'
         });
     }
     catch (e) {
@@ -57,40 +57,40 @@ export const postFoodUnit = async (req: Request, res: Response) =>{
     }
 } 
 
-export const putFoodUnit = async (req:Request, res:Response) =>{
+export const putPhysicalUnit = async (req:Request, res:Response) =>{
     
     const {id, tipo}=req.params;
-    const updateFoodUnit:Basica= req.body;
+    const updatePhysicalUnit:Basica= req.body;
     try {
         const conn = await connect();
-        const food_units = await conn.query('UPDATE food_units set ? WHERE id=?', [updateFoodUnit,id]);
+        const physical_units = await conn.query('UPDATE physical_units set ? WHERE id=?', [updatePhysicalUnit,id]);
         return res.json({
-            'FoodUnit':'update' 
+            'PhysicalUnit':'update' 
         });
     }
     catch (e) {
         console.log(e)
         return res.status(400).json({
-            'mensaje':' no actualizo el FoodUnit',
+            'mensaje':' no actualizo el PhysicalUnit',
             'cuerpo':req.body
 
         })
     }
 }
-export const deleteFoodUnit =async (req:Request, res:Response) =>{
+export const deletePhysicalUnit =async (req:Request, res:Response) =>{
 
     const {id, tipo}=req.params;
     try {
         const conn = await connect();
-        const food_units = await conn.query('DELETE FROM food_units WHERE id=?', [id]);
+        const physical_units = await conn.query('DELETE FROM physical_units WHERE id=?', [id]);
         return res.json({
-            'FoodUnit':'eliminado' 
+            'PhysicalUnit':'eliminado' 
         });
     }
     catch (e) {
         console.log(e)
         return res.status(400).json({
-            'mensaje':' no elimino el FoodUnit'
+            'mensaje':' no elimino el PhysicalUnit'
         })
     }
 

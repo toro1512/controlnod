@@ -6,7 +6,13 @@ import userTypeActivities from '../routes/type_activities';
 import userFood from '../routes/food';
 import userFoodUnits from '../routes/food_units';
 import userGroups from '../routes/groups';
-
+import userActivities from '../routes/activities';
+import userAnswers from '../routes/answers';
+import userFoodMoments from '../routes/food_moments';
+import userIntensities from '../routes/intensities'; 
+import userPhysicalUnits from '../routes/physical_units'; 
+import userPhysicalMeasures from '../routes/physical_measures'; 
+import userQuestions from '../routes/questions'; 
 
 
 
@@ -21,7 +27,14 @@ class Server{
         type_activities:'/api/typesActivities',
         food:'/api/food',
         groups:'/api/groups',
-        foodUnit:'/api/foodUnit',
+        foodUnit:'/api/foodUnits',
+        activities:'/api/activities',
+        intensities:'/api/intensities',
+        answers:'/api/answers',
+        quesrtions:'/api/questions',
+        physicalMeasures:'/api/physicalMeasures',
+        physicalUnit:'/api/physicalUnits',
+        foodMoment:'/api/foodMoments'
         
     }
 //constructor
@@ -52,8 +65,20 @@ class Server{
         this.app.use(this.apiPaths.usuarios, userRoutes);
         this.app.use(this.apiPaths.type_activities,userTypeActivities);
         this.app.use(this.apiPaths.foodUnit, userFoodUnits);
+        this.app.use(this.apiPaths.foodMoment, userFoodMoments);
         this.app.use(this.apiPaths.groups, userGroups);
         this.app.use(this.apiPaths.food, userFood);
+        this.app.use(this.apiPaths.activities, userActivities);
+        this.app.use(this.apiPaths.answers, userAnswers);
+        this.app.use(this.apiPaths.intensities, userIntensities);
+        this.app.use(this.apiPaths.physicalUnit, userPhysicalUnits);
+        this.app.use(this.apiPaths.physicalMeasures, userPhysicalMeasures);
+        this.app.use(this.apiPaths.quesrtions, userQuestions);
+
+
+
+
+
        
     }
 //servidor

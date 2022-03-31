@@ -25,7 +25,7 @@ export const getTypeActivitie = async (req:Request, res:Response): Promise <Resp
 
     try {
         const conn = await connect();
-        const type_activities = await conn.query('SELECT * FROM type_activities WHERE id=? and tipo =?', [id,tipo]);
+        const type_activities = await conn.query('SELECT * FROM type_activities WHERE id=?', [id]);
         return res.json({
             'TypeActivitie': type_activities[0],
             'id': id,
@@ -63,7 +63,7 @@ export const putTypeActivitie = async (req:Request, res:Response) =>{
     const updateTypeActivitie:Basica= req.body;
     try {
         const conn = await connect();
-        const type_activities = await conn.query('UPDATE type_activities set ? WHERE id=? and tipo =?', [updateTypeActivitie,id,tipo]);
+        const type_activities = await conn.query('UPDATE type_activities set ? WHERE id=?', [updateTypeActivitie,id]);
         return res.json({
             'TypeActivitie':'update' 
         });
@@ -82,7 +82,7 @@ export const deleteTypeActivitie =async (req:Request, res:Response) =>{
     const {id, tipo}=req.params;
     try {
         const conn = await connect();
-        const type_activities = await conn.query('DELETE FROM type_activities WHERE id=? and tipo =?', [id,tipo]);
+        const type_activities = await conn.query('DELETE FROM type_activities WHERE id=?', [id]);
         return res.json({
             'TypeActivitie':'eliminado' 
         });

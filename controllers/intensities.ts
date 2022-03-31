@@ -2,12 +2,12 @@ import { Request, Response } from "express"
 import { connect } from "../db/conexion";
 import { Basica } from "../models/Basica";
 
-export const getFoodUnits= async (req: Request, res: Response): Promise<Response> => {
+export const getIntensities= async (req: Request, res: Response): Promise<Response> => {
     try {
         const conn = await connect();
-        const food_units = await conn.query('SELECT * FROM food_units');
+        const intensities = await conn.query('SELECT * FROM intensities');
         return res.json({
-            'FoodUnit': food_units[0]
+            'Intensitiess': intensities[0]
         });
     }
     catch (e) {
@@ -18,16 +18,16 @@ export const getFoodUnits= async (req: Request, res: Response): Promise<Response
     }
 }
 
-export const getFoodUnit = async (req:Request, res:Response): Promise <Response> => {
+export const getIntensitie = async (req:Request, res:Response): Promise <Response> => {
     
     const id=req.params.id;
     const tipo =req.params.tipo;
 
     try {
         const conn = await connect();
-        const food_units = await conn.query('SELECT * FROM food_units WHERE id=?', [id]);
+        const intensities = await conn.query('SELECT * FROM intensities WHERE id=?', [id]);
         return res.json({
-            'FoodUnit': food_units[0],
+            'Intensities': intensities[0],
             'id': id,
             'tipo': tipo
         });
@@ -35,18 +35,18 @@ export const getFoodUnit = async (req:Request, res:Response): Promise <Response>
     catch (e) {
         console.log(e)
         return res.status(400).json({
-            'mensaje':' no hay FoodUnit con ee dato'
+            'mensaje':' no hay Intensities con ee dato'
         })
     }
 }
-export const postFoodUnit = async (req: Request, res: Response) =>{
+export const postIntensitie = async (req: Request, res: Response) =>{
     
-    const newFoodUnit:Basica= req.body;
+    const newIntensities:Basica= req.body;
     try {
         const conn = await connect();
-        const food_units = await conn.query('INSERT INTO food_units SET ?',[newFoodUnit]);
+        const intensities = await conn.query('INSERT INTO intensities SET ?',[newIntensities]);
         return res.json({
-            'mes':'FoodUnit creado'
+            'mes':'Intensities creado'
         });
     }
     catch (e) {
@@ -57,41 +57,41 @@ export const postFoodUnit = async (req: Request, res: Response) =>{
     }
 } 
 
-export const putFoodUnit = async (req:Request, res:Response) =>{
+export const putIntensitie = async (req:Request, res:Response) =>{
     
     const {id, tipo}=req.params;
-    const updateFoodUnit:Basica= req.body;
+    const updateIntensities:Basica= req.body;
     try {
         const conn = await connect();
-        const food_units = await conn.query('UPDATE food_units set ? WHERE id=?', [updateFoodUnit,id]);
+        const intensities = await conn.query('UPDATE intensities set ? WHERE id=?', [updateIntensities,id]);
         return res.json({
-            'FoodUnit':'update' 
+            'Intensities':'update' 
         });
     }
     catch (e) {
         console.log(e)
         return res.status(400).json({
-            'mensaje':' no actualizo el FoodUnit',
+            'mensaje':' no actualizo el Intensities',
             'cuerpo':req.body
 
         })
     }
 }
-export const deleteFoodUnit =async (req:Request, res:Response) =>{
+export const deleteIntensitie =async (req:Request, res:Response) =>{
 
     const {id, tipo}=req.params;
     try {
         const conn = await connect();
-        const food_units = await conn.query('DELETE FROM food_units WHERE id=?', [id]);
+        const intensities = await conn.query('DELETE FROM intensities WHERE id=?', [id]);
         return res.json({
-            'FoodUnit':'eliminado' 
+            'Intensities':'eliminado' 
         });
     }
     catch (e) {
         console.log(e)
         return res.status(400).json({
-            'mensaje':' no elimino el FoodUnit'
+            'mensaje':' no elimino el Intensities'
         })
     }
 
-} 
+}  

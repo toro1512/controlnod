@@ -1,13 +1,13 @@
 import { Request, Response } from "express"
 import { connect } from "../db/conexion";
-import { Basica } from "../models/Basica";
+import { ConFore } from "../models/ConFore";
 
-export const getFoodUnits= async (req: Request, res: Response): Promise<Response> => {
+export const getActivities= async (req: Request, res: Response): Promise<Response> => {
     try {
         const conn = await connect();
-        const food_units = await conn.query('SELECT * FROM food_units');
+        const activities = await conn.query('SELECT * FROM activities');
         return res.json({
-            'FoodUnit': food_units[0]
+            'Activities': activities[0]
         });
     }
     catch (e) {
@@ -18,16 +18,16 @@ export const getFoodUnits= async (req: Request, res: Response): Promise<Response
     }
 }
 
-export const getFoodUnit = async (req:Request, res:Response): Promise <Response> => {
+export const getActivitie = async (req:Request, res:Response): Promise <Response> => {
     
     const id=req.params.id;
     const tipo =req.params.tipo;
 
     try {
         const conn = await connect();
-        const food_units = await conn.query('SELECT * FROM food_units WHERE id=?', [id]);
+        const activities = await conn.query('SELECT * FROM activities WHERE id=?', [id]);
         return res.json({
-            'FoodUnit': food_units[0],
+            'Activitie': activities[0],
             'id': id,
             'tipo': tipo
         });
@@ -35,18 +35,18 @@ export const getFoodUnit = async (req:Request, res:Response): Promise <Response>
     catch (e) {
         console.log(e)
         return res.status(400).json({
-            'mensaje':' no hay FoodUnit con ee dato'
+            'mensaje':' no hay Activitie con ee dato'
         })
     }
 }
-export const postFoodUnit = async (req: Request, res: Response) =>{
+export const postActivitie = async (req: Request, res: Response) =>{
     
-    const newFoodUnit:Basica= req.body;
+    const newActivitie:ConFore= req.body;
     try {
         const conn = await connect();
-        const food_units = await conn.query('INSERT INTO food_units SET ?',[newFoodUnit]);
+        const activities = await conn.query('INSERT INTO activities SET ?',[newActivitie]);
         return res.json({
-            'mes':'FoodUnit creado'
+            'mes':'Activitie creado'
         });
     }
     catch (e) {
@@ -57,41 +57,41 @@ export const postFoodUnit = async (req: Request, res: Response) =>{
     }
 } 
 
-export const putFoodUnit = async (req:Request, res:Response) =>{
+export const putActivitie = async (req:Request, res:Response) =>{
     
     const {id, tipo}=req.params;
-    const updateFoodUnit:Basica= req.body;
+    const updateActivitie:ConFore= req.body;
     try {
         const conn = await connect();
-        const food_units = await conn.query('UPDATE food_units set ? WHERE id=?', [updateFoodUnit,id]);
+        const activities = await conn.query('UPDATE activities set ? WHERE id=?', [updateActivitie,id]);
         return res.json({
-            'FoodUnit':'update' 
+            'Activitie':'update' 
         });
     }
     catch (e) {
         console.log(e)
         return res.status(400).json({
-            'mensaje':' no actualizo el FoodUnit',
+            'mensaje':' no actualizo el Activitie',
             'cuerpo':req.body
 
         })
     }
 }
-export const deleteFoodUnit =async (req:Request, res:Response) =>{
+export const deleteActivitie =async (req:Request, res:Response) =>{
 
     const {id, tipo}=req.params;
     try {
         const conn = await connect();
-        const food_units = await conn.query('DELETE FROM food_units WHERE id=?', [id]);
+        const activities = await conn.query('DELETE FROM activities WHERE id=?', [id]);
         return res.json({
-            'FoodUnit':'eliminado' 
+            'Activitie':'eliminado' 
         });
     }
     catch (e) {
         console.log(e)
         return res.status(400).json({
-            'mensaje':' no elimino el FoodUnit'
+            'mensaje':' no elimino el Activitie'
         })
     }
 
-} 
+}  

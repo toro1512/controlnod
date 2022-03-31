@@ -25,7 +25,7 @@ export const getGroup = async (req:Request, res:Response): Promise <Response> =>
 
     try {
         const conn = await connect();
-        const users = await conn.query('SELECT * FROM groups WHERE id=? and tipo =?', [id,tipo]);
+        const users = await conn.query('SELECT * FROM groups WHERE id=?', [id]);
         return res.json({
             'Group': users[0],
             'id': id,
@@ -63,7 +63,7 @@ export const putGroup = async (req:Request, res:Response) =>{
     const updateGroup:Basica= req.body;
     try {
         const conn = await connect();
-        const users = await conn.query('UPDATE groups set ? WHERE id=? and tipo =?', [updateGroup,id,tipo]);
+        const users = await conn.query('UPDATE groups set ? WHERE id=?', [updateGroup,id]);
         return res.json({
             'Group':'update' 
         });
@@ -82,7 +82,7 @@ export const deleteGroup =async (req:Request, res:Response) =>{
     const {id, tipo}=req.params;
     try {
         const conn = await connect();
-        const users = await conn.query('DELETE FROM groups WHERE id=? and tipo =?', [id,tipo]);
+        const users = await conn.query('DELETE FROM groups WHERE id=?', [id]);
         return res.json({
             'Group':'eliminado' 
         });

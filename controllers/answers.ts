@@ -2,12 +2,12 @@ import { Request, Response } from "express"
 import { connect } from "../db/conexion";
 import { Basica } from "../models/Basica";
 
-export const getFoodUnits= async (req: Request, res: Response): Promise<Response> => {
+export const getAnswers= async (req: Request, res: Response): Promise<Response> => {
     try {
         const conn = await connect();
-        const food_units = await conn.query('SELECT * FROM food_units');
+        const answers = await conn.query('SELECT * FROM answers');
         return res.json({
-            'FoodUnit': food_units[0]
+            'Answers': answers[0]
         });
     }
     catch (e) {
@@ -18,16 +18,16 @@ export const getFoodUnits= async (req: Request, res: Response): Promise<Response
     }
 }
 
-export const getFoodUnit = async (req:Request, res:Response): Promise <Response> => {
+export const getAnswer = async (req:Request, res:Response): Promise <Response> => {
     
     const id=req.params.id;
     const tipo =req.params.tipo;
 
     try {
         const conn = await connect();
-        const food_units = await conn.query('SELECT * FROM food_units WHERE id=?', [id]);
+        const answers = await conn.query('SELECT * FROM answers WHERE id=?', [id]);
         return res.json({
-            'FoodUnit': food_units[0],
+            'Answer': answers[0],
             'id': id,
             'tipo': tipo
         });
@@ -35,18 +35,18 @@ export const getFoodUnit = async (req:Request, res:Response): Promise <Response>
     catch (e) {
         console.log(e)
         return res.status(400).json({
-            'mensaje':' no hay FoodUnit con ee dato'
+            'mensaje':' no hay Answer con ee dato'
         })
     }
 }
-export const postFoodUnit = async (req: Request, res: Response) =>{
+export const postAnswer = async (req: Request, res: Response) =>{
     
-    const newFoodUnit:Basica= req.body;
+    const newAnswer:Basica= req.body;
     try {
         const conn = await connect();
-        const food_units = await conn.query('INSERT INTO food_units SET ?',[newFoodUnit]);
+        const answers = await conn.query('INSERT INTO answers SET ?',[newAnswer]);
         return res.json({
-            'mes':'FoodUnit creado'
+            'mes':'Answer creado'
         });
     }
     catch (e) {
@@ -57,41 +57,41 @@ export const postFoodUnit = async (req: Request, res: Response) =>{
     }
 } 
 
-export const putFoodUnit = async (req:Request, res:Response) =>{
+export const putAnswer = async (req:Request, res:Response) =>{
     
     const {id, tipo}=req.params;
-    const updateFoodUnit:Basica= req.body;
+    const updateAnswer:Basica= req.body;
     try {
         const conn = await connect();
-        const food_units = await conn.query('UPDATE food_units set ? WHERE id=?', [updateFoodUnit,id]);
+        const answers = await conn.query('UPDATE answers set ? WHERE id=?', [updateAnswer,id]);
         return res.json({
-            'FoodUnit':'update' 
+            'Answer':'update' 
         });
     }
     catch (e) {
         console.log(e)
         return res.status(400).json({
-            'mensaje':' no actualizo el FoodUnit',
+            'mensaje':' no actualizo el Answer',
             'cuerpo':req.body
 
         })
     }
 }
-export const deleteFoodUnit =async (req:Request, res:Response) =>{
+export const deleteAnswer =async (req:Request, res:Response) =>{
 
     const {id, tipo}=req.params;
     try {
         const conn = await connect();
-        const food_units = await conn.query('DELETE FROM food_units WHERE id=?', [id]);
+        const answers = await conn.query('DELETE FROM answers WHERE id=?', [id]);
         return res.json({
-            'FoodUnit':'eliminado' 
+            'Answer':'eliminado' 
         });
     }
     catch (e) {
         console.log(e)
         return res.status(400).json({
-            'mensaje':' no elimino el FoodUnit'
+            'mensaje':' no elimino el Answer'
         })
     }
 
-} 
+}  

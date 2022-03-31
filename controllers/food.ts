@@ -23,7 +23,7 @@ export const getFood = async (req:Request, res:Response): Promise <Response> => 
     const id=req.params.id;
     try {
         const conn = await connect();
-        const foods = await conn.query('SELECT * FROM foods WHERE id=? and tipo =?', [id]);
+        const foods = await conn.query('SELECT * FROM foods WHERE id=?', [id]);
         return res.json({
             'Food': foods[0],
             'id': id,
@@ -61,7 +61,7 @@ export const putFood = async (req:Request, res:Response) =>{
     const updateFood:Foods= req.body;
     try {
         const conn = await connect();
-        const foods = await conn.query('UPDATE foods set ? WHERE id=? and tipo =?', [updateFood,id]);
+        const foods = await conn.query('UPDATE foods set ? WHERE id=?', [updateFood,id]);
         return res.json({
             'Food':'update' 
         });
@@ -80,7 +80,7 @@ export const deleteFood =async (req:Request, res:Response) =>{
     const {id, tipo}=req.params;
     try {
         const conn = await connect();
-        const foods = await conn.query('DELETE FROM foods WHERE id=? and tipo =?', [id,tipo]);
+        const foods = await conn.query('DELETE FROM foods WHERE id=?', [id]);
         return res.json({
             'Foods':'eliminado' 
         });
